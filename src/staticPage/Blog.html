@@ -113,7 +113,53 @@
         <footer-vue :fooPro="author" @click="doThis(arg1)"></footer-vue>
         <div class="layout-bg"></div>
 
+
+        <!-- 定义的模版 -->
+        <template id="temApp">
+            <div id="footer-vue">
+                    <p>{{time}} <a href="#">YP's Blog</a> - Hosted by <a href="#" style="font-weight: bold">Coding Pages</a></p>
+                    <p>
+                        <a  href="#">沪ICP备00000000号{{fooPro}}</a>
+                    </p>
+                </div>
+    </template>
+
+    <template id="myAddress">
+        <ul class ="contact-list non-style-list">
+            <li>
+                <b class ="twitter">TWITTER</b>: <a href="#">@DanielYao</a>
+            </li>
+            <li>
+                <b class ="weibo">微博</b>: <a href="#">@DanielYao</a>
+            </li>
+            <li>
+                <b class ="zhihu">知乎</b>: <a href="#" ></a>
+            </li>
+            <li>
+                <b class ="github">GITHUB</b>:  <a href="https://github.com/">anjoy8</a>
+            </li>
+            <li>
+                <b class ="email">EMAIL</b>:  <a href="www.mingdao.com">randypriv at YP</a>
+            </li>
+        </ul>
+    </template>
     </div>
+
+    <div id="dynamic-component-demo" class="demo">
+            <button
+              v-for="tab in tabs"
+              v-bind:key="tab"
+              v-bind:class="['tab-button', { active: currentTab === tab }]" 
+              v-on:click="currentTab = tab"
+            >{{ tab }}</button>
+          <!-- 组件的使用 通过currentTabComponent 来动态展示是哪一个组件 -->
+            <component
+              v-bind:is="currentTabComponent" 
+              class="tab"
+            ></component>
+          </div>
+
+
     <script src="blog.js"></script>
 </body>
 

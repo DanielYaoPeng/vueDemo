@@ -10,12 +10,7 @@ var taskInit = {
 
 //  extend 创建组件
 var footerComponent = Vue.extend({
-    template: ` <div id="footer-vue">
-                  <p>{{time}} <a href="#">YP's Blog</a> - Hosted by <a href="#" style="font-weight: bold">Coding Pages</a></p>
-                  <p>
-                      <a  href="#">沪ICP备00000000号{{fooPro}}</a>
-                  </p>
-              </div>`,
+    template: "#temApp",
     props: ['fooPro'],
     data() { //这里定义的时模板里"{{}}"需要获取的数据
         return {
@@ -119,23 +114,7 @@ let vm = new Vue({
 
     components: {
         'mycomponent': {
-            template: `<ul class ="contact-list non-style-list">
-                  <li>
-                      <b class ="twitter">TWITTER</b>: <a href="#">@DanielYao</a>
-                  </li>
-                  <li>
-                      <b class ="weibo">微博</b>: <a href="#">@DanielYao</a>
-                  </li>
-                  <li>
-                      <b class ="zhihu">知乎</b>: <a href="#" ></a>
-                  </li>
-                  <li>
-                      <b class ="github">GITHUB</b>:  <a href="https://github.com/">anjoy8</a>
-                  </li>
-                  <li>
-                      <b class ="email">EMAIL</b>:  <a href="www.mingdao.com">randypriv at YP</a>
-                  </li>
-              </ul>`,
+            template: "#myAddress",
             data() {
                 return {
                     message: 'hello world two'
@@ -289,4 +268,28 @@ function getNowYear() {
     return now.getFullYear(); //得到年份
 }
 
+
+//定义三个组件，可以比如是我们的三个页面，
+Vue.component('tab-home', { 
+    template: '<div>Home component</div>' //组件1，也就是页面1
+})
+Vue.component('tab-posts', { 
+    template: '<div>Posts component</div>' //组件2，页面2
+})
+Vue.component('tab-archive', { 
+    template: '<div>Archive component</div>' //组件3，页面3
+})
+
+new Vue({
+    el:"#dynamic-component-demo",
+    data: {
+        currentTab: 'Home',//当前banner名称
+        tabs: ['Home', 'Posts', 'Archive']//定义三个banner
+      },
+      computed: {//计算属性，实时监控获取当然banner的值，并返回到页面
+        currentTabComponent: function () {
+          return 'tab-' + this.currentTab.toLowerCase()//组件名称拼串，一定要和上边的三个组件名对应
+        }
+      }
+})
 
