@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="rexo.css" />
+    <!--引用vue.js在线文件，安装-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- // 调用子组件，传递数据 lists 和事件 run -->
+        <child :lists="lists" :run="run">
+            <template slot-scope="a">
+                {{a}}
+            </template>
+        </child>
+    </div>
+
+</body>
+<script>
+
+
+
+    // 定义子组件
+    Vue.component('child', {
+        props: ['lists', 'run'],
+        methods: {
+            testRun() {
+                this.run()
+            }
+        },
+        template: `
+              <div @click='testRun'>
+                  <ul>
+  
+                      <li v-for="list in lists">
+                          <slot :bbbbb="list"></slot>
+                      </li>
+  
+  
+                  </ul>
+              </div>
+          `
+    });
+
+    // 实例化 Vue
+    var V = new Vue({
+        el: '#app',
+        data: {
+            now: '',
+            lists: [
+                { id: 1, name: '孙悟空' },
+                { id: 2, name: '猪八戒' },
+                { id: 3, name: '沙和尚' },
+                { id: 4, name: '唐僧' },
+                { id: 5, name: '小白龙' },
+            ],
+
+            answer: 'Time is:'
+        },
+        watch: {
+        },
+        methods: {
+            run() {
+                console.log(77)
+            }
+
+        },
+        mounted() {
+            //this.now=this.dateFtt("yyyy-MM-dd hh:mm:ss",new Date());;
+
+        }
+    })
+
+</script>
+
+</html>

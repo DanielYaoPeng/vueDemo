@@ -110,21 +110,26 @@
             <!-- <my-component></my-component> -->
             <mycomponent></mycomponent>
         </div>
-        <footer-vue :fooPro="author" @click="doThis(arg1)"></footer-vue>
+        <child message="孙悟猪"></child>
+
+       
+   
+        <!-- //在自定义的组件上，新增一个动态属性，然后属性的值 author 是父组件的，这个时候父组件就是已经把值给发过去了 -->
+        <footer-vue :foo-pro="author" @click="doThis(arg1)"></footer-vue>   
         <div class="layout-bg"></div>
 
 
         <!-- 定义的模版 -->
-        <template id="temApp">
+        <!-- <template id="temApp">
             <div id="footer-vue">
                     <p>{{time}} <a href="#">YP's Blog</a> - Hosted by <a href="#" style="font-weight: bold">Coding Pages</a></p>
                     <p>
                         <a  href="#">沪ICP备00000000号{{fooPro}}</a>
                     </p>
                 </div>
-    </template>
+    </template> -->
 
-    <template id="myAddress">
+    <!-- <template id="myAddress">
         <ul class ="contact-list non-style-list">
             <li>
                 <b class ="twitter">TWITTER</b>: <a href="#">@DanielYao</a>
@@ -142,7 +147,7 @@
                 <b class ="email">EMAIL</b>:  <a href="www.mingdao.com">randypriv at YP</a>
             </li>
         </ul>
-    </template>
+    </template> -->
     </div>
 
     <div id="dynamic-component-demo" class="demo">
