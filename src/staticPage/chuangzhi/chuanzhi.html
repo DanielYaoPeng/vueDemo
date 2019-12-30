@@ -28,6 +28,13 @@
         <!-- //3、父组件通过监听，来获取到这个广播信号 increment ，然后触发 incrementTotal 方法 -->
         <!-- 定义一个组件，名称可以随便起，只要是这种形式就行 xx-xx，主要为了监听内部的事件 -->
         <button-counter v-on:increment="incrementTotal"></button-counter>
+        <br />
+        <!-- <custom-input @run="run"></custom-input> -->
+        <!-- <input v-model="something">   v-model="something"  是 :value="something" @input="something = $event.target.value" 的缩写。 会自动监听input-->
+        <!-- <custom-input v-model="something"></custom-input> -->
+        <input v-model="something"> 
+        <br />
+        {{something}}
     </div>
 </body>
 <script>
@@ -86,6 +93,15 @@
         }
     });
 
+    // Vue.component('custom-input', {
+    //     props:['something'],
+    //     template: '<input type="text" @input="updateValue($event.target.value)"/>',
+    //     methods: {
+    //         updateValue: function (value) {
+    //             this.$emit('input', value)
+    //         }
+    //     }
+    // })
 
     //使用 v-on 绑定自定义事件  组件传递
     Vue.component('button-counter', {
@@ -99,7 +115,7 @@
             incrementCounter: function () {
                 this.counter += 1
                 //使用 $on(eventName) 监听事件;使用 $emit(eventName) 触发事件
-                this.$emit('increment',this.counter)//2、方法被触发以后，向父组件 发送一个信号广播，并传递参数 counter，名字就是 increment。
+                this.$emit('increment', this.counter)//2、方法被触发以后，向父组件 发送一个信号广播，并传递参数 counter，名字就是 increment。
             }
         },
         mounted() {//常用，挂载完成后执行
@@ -110,12 +126,19 @@
     new Vue({
         el: '#counter-event-example',
         data: {
-            total: 0
+            total: 0,
+            something:''
         },
         methods: {
             incrementTotal(counter) {//4、incrementTotal 被触发，获取到参数 counter 值，执行相应的操作
                 this.total = counter
-            }
+            },
+            
+            // run(value) {
+            //     this.something = value;
+            //     console.log("来了");
+
+            // }
         }
     })
 
