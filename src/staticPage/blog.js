@@ -10,8 +10,13 @@ var taskInit = {
 
 //  extend 创建组件
 var footerComponent = Vue.extend({
-    template: "#temApp",
-    props: ['fooPro'],
+    template: ` <div id="footer-vue">
+                <p>{{time}} <a href="#">YP's Blog</a> - Hosted by <a href="#" style="font-weight: bold">Coding Pages</a></p>
+                <p>
+                    <a  href="#">沪ICP备00000000号{{fooPro}}</a>
+                </p>
+            </div>`,
+    props: ['fooPro'], //组件传值
     data() { //这里定义的时模板里"{{}}"需要获取的数据
         return {
             message: "hello world",
@@ -20,8 +25,60 @@ var footerComponent = Vue.extend({
     }
 });
 
+
 // component注册 组件
 Vue.component('footer-vue', footerComponent);
+
+
+
+Vue.component('child', {
+    // 声明 props   静态Props传值
+    props: ['message'],
+    // 就像 data 一样，prop 也可以在模板中使用  
+    // 同样也可以在 vm 实例中通过 this.message 来使用
+    template: '<span>{{ message }}</span>'
+  })
+  
+ 
+
+
+
+//我的blog联系方式组件
+var myAdd = Vue.extend({
+    template:` <ul class ="contact-list non-style-list">
+            <li>
+                <b class ="twitter">TWITTER</b>: <a href="#">@DanielYao</a>
+            </li>
+            <li>
+                <b class ="weibo">微博</b>: <a href="#">@DanielYao</a>
+            </li>
+            <li>
+                <b class ="zhihu">知乎</b>: <a href="#" ></a>
+            </li>
+            <li>
+                <b class ="github">GITHUB</b>:  <a href="https://github.com/">anjoy8</a>
+            </li>
+            <li>
+                <b class ="email">EMAIL</b>:  <a href="www.mingdao.com">randypriv at YP</a>
+            </li>
+        </ul>`,
+        data() {
+            return {
+                message: 'hello world two'
+            }
+        },
+        directives: { //自定义局部指令，使用的时候，直接可以 <mycomponent v-focus><mycomponent>
+            focus: {
+                inserted(el) {
+
+                    el.focus();
+
+                }
+            }
+        }
+});
+
+
 
 //在 vue 的整个生命周期内，总共分为8个阶段创建前/后，载入前/后，更新前/后，销毁前/后。
 
@@ -113,23 +170,7 @@ let vm = new Vue({
     },
 
     components: {
-        'mycomponent': {
-            template: "#myAddress",
-            data() {
-                return {
-                    message: 'hello world two'
-                }
-            },
-            directives: {
-                focus: {
-                    inserted(el) {
-
-                        el.focus();
-
-                    }
-                }
-            }
-        }
+        'mycomponent': myAdd
     },
 
     beforeCreate() {
@@ -137,14 +178,14 @@ let vm = new Vue({
         console.log("%c%s", "color:red", "el     : " + this.$el); //undefined
         console.log("%c%s", "color:red", "data   : " + this.$data); //undefined 
         console.log("%c%s", "color:red", "author: " + this.author); //undefined 
-        debugger;
+       // debugger;
     },
     created: function() {
         console.group('created 创建完毕状态===============》');
         console.log("%c%s", "color:red", "el     : " + this.$el); //undefined
         console.log("%c%s", "color:red", "data   : " + this.$data); //已被初始化 
         console.log("%c%s", "color:red", "author: " + this.author); //已被初始化
-        debugger;
+        //debugger;
     },
     beforeMount: function() {
         //我们知道DOM还没生成，属性el还为 undefined，那么，此阶段为即将挂载，页面渲染成功，el 已经赋值
@@ -153,7 +194,7 @@ let vm = new Vue({
         console.log(this.$el);
         console.log("%c%s", "color:red", "data   : " + this.$data); //已被初始化  
         console.log("%c%s", "color:red", "author: " + this.author); //已被初始化  
-        debugger;
+        //debugger;
     },
     mounted: function() {
         //挂载完毕阶段，到了这个阶段，数据就会被成功渲染出来
@@ -162,7 +203,7 @@ let vm = new Vue({
         console.log(this.$el);
         console.log("%c%s", "color:red", "data   : " + this.$data); //已被初始化
         console.log("%c%s", "color:red", "author: " + this.author); //已被初始化 
-        debugger;
+        //debugger;
     },
     beforeUpdate: function() {
         //更新前（修改Data，但未渲染至页面）
@@ -171,7 +212,7 @@ let vm = new Vue({
         console.log(this.$el);
         console.log("%c%s", "color:red", "data   : " + this.$data);
         console.log("%c%s", "color:red", "author: " + this.author);
-        debugger; //打断点
+       // debugger; //打断点
     },
     updated: function() {
         //更新数据，页面渲染
@@ -180,7 +221,7 @@ let vm = new Vue({
         console.log(this.$el);
         console.log("%c%s", "color:red", "data   : " + this.$data);
         console.log("%c%s", "color:red", "author: " + this.author);
-        debugger;
+        //debugger;
     },
     beforeDestroy: function() {
         //调用实例的destroy( )方法可以销毁当前的组件，在销毁前，会触发beforeDestroy钩子。
@@ -189,7 +230,7 @@ let vm = new Vue({
         console.log(this.$el);
         console.log("%c%s", "color:red", "data   : " + this.$data);
         console.log("%c%s", "color:red", "author: " + this.author);
-        debugger;
+        //debugger;
     },
     destroyed: function() {
         //成功销毁之后，会触发 destroyed 钩子，此时该实例与其他实例的关联已经被清除，它与视图之间也被解绑，控制 Data 已经不能控制页面，也无法双向绑定。
@@ -198,7 +239,7 @@ let vm = new Vue({
         console.log(this.$el);
         console.log("%c%s", "color:red", "data   : " + this.$data);
         console.log("%c%s", "color:red", "author: " + this.author);
-        debugger;
+        //debugger;
     },
     methods: {
         addArticle() {
@@ -235,6 +276,9 @@ let vm = new Vue({
         deep: true //表示监视对象的属性变化
     },
 });
+
+
+
 
 
 //函数声明（定义和使用没有先后之分）
