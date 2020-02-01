@@ -64,6 +64,7 @@ export default {
     },
     getItem() {
       console.log(this.listOne);
+      cache.remove(dataKey);
     },
     saveList(){
        cache.set(dataKey,this.listOne);
