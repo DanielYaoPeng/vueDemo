@@ -90,8 +90,7 @@
 <script>
 import myContact from "./components/MyContact.vue";
 import footers from "./components/Footer.vue";
-
-
+import axios from "axios";
 
 var taskInit = {
   name: "", //内容为空
@@ -100,6 +99,9 @@ var taskInit = {
   finished: false, //未完成
   deleted: false //未删除
 };
+
+const api =
+  "http://www.phonegap100.com/appapi.php?a=getPortallList&catid=20&page=1";
 export default {
   data() {
     return {
@@ -193,6 +195,13 @@ export default {
   },
   methods: {
     addArticle() {
+      //axios
+      axios.get(api).then(res => {
+          console.log(`axios请求方式`);
+          console.log(res);
+        }).catch(err => {
+          console.log(`错误信息${err}`);
+        });
       this.list = this.list.reverse();
       this.list.push(this.task);
       this.list = this.list.reverse();
@@ -202,14 +211,16 @@ export default {
       // this.list.
       //console.log(index);
       this.list.splice(index, 1);
-      let api='http://www.phonegap100.com/appapi.php?a=getPortallList&catid=20&page=1';
-      //模拟请求服务器
-      this.$http.get(api).then((response)=>{
-        console.log(response);
-      },function(err){
-        console.log('错误'+ err);
-      })
 
+      //模拟请求服务器
+      this.$http.get(api).then(
+        response => {
+          console.log(response);
+        },
+        function(err) {
+          console.log("错误" + err);
+        }
+      );
     }
   },
   //通过计算属性过滤数据
