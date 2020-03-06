@@ -77,7 +77,7 @@
         <span>Contact</span>
       </h2>
       <!-- <my-component></my-component> -->
-      <mycomponent></mycomponent>
+      <mycomponent :myName="englishName" :webName="name"></mycomponent>
     </div>
     <child message="孙悟猪"></child>
 
@@ -107,6 +107,7 @@ export default {
     return {
       name: "孙悟猪",
       author: "孙悟猪",
+      englishName:"DanielYao",
       task: taskInit,
       isShow: true,
       hrClass: "hr",

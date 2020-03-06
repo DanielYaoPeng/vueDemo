@@ -2,16 +2,16 @@
     <div>
         <ul class ="contact-list non-style-list">
             <li>
-                <b class ="twitter">TWITTER</b>: <a href="#">@DanielYao</a>
+                <b class ="twitter">TWITTER</b>: <a href="#">@{{myName}}</a>
             </li>
             <li>
-                <b class ="weibo">微博</b>: <a href="#">@DanielYao</a>
+                <b class ="weibo">微博</b>: <a href="#">@{{webName}}</a>
             </li>
             <li>
                 <b class ="zhihu">知乎</b>: <a href="#" ></a>
             </li>
             <li>
-                <b class ="github">GITHUB</b>:  <a href="https://github.com/">anjoy8</a>
+                <b class ="github">GITHUB</b>:  <a href="https://github.com/">{{myName}}</a>
             </li>
             <li>
                 <b class ="email">EMAIL</b>:  <a href="www.mingdao.com">randypriv at YP</a>
@@ -34,6 +34,7 @@ export default {
 
                 }
             }
-        }
+        },
+        props:['myName','webName'] //接收夫组件传值，或传方法 都行。（还可验证传值的类型，不常用）
 }
 </script>
