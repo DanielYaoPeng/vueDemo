@@ -6,7 +6,7 @@
           style="background-image: url(https://pic.cnblogs.com/avatar/1468246/20180817230353.png); width: 128px; height: 128px; background-size: cover; border-radius: 50%; margin: 0 auto;"
           v-on:click="alert('我是头像')"
         ></div>
-        <p class="name" v-text="author">博客园：{{ name }}</p>
+        <p class="name" v-text="author" @click="tou()">博客园：{{ name }}</p>
         <p class="desc">Software Engineer.Currently working in Microsoft co-operation.</p>
       </div>
       <nav>
@@ -53,9 +53,7 @@
         <!--注意，不能在已经存在的静态类post-list-item上操作 动态绑定class样式，deleted=true状态样式异化-->
         <li v-for="item in listSearch" class="post-list-item" :class="{ deleted: item.deleted}">
           <!--这里用到了 v-bind 指令-->
-          <a
-            v-bind:href="'https://www.cnblogs.com/laozhang-is-phi/p/'+ item.id +'.html'"
-          >{{item.name}}</a>
+          <a v-bind:href="'https://www.cnblogs.com/laozhang-is-phi/p/'+ item.id +'.html'">{{item.name}}</a>
           <!--还可以这样写-->
           <!--<a :href="liskUrl">{{item.name}}</a>-->
           <span class="post-list-date">({{item.date}})</span>
@@ -82,7 +80,7 @@
     <child message="孙悟猪"></child>
 
     <!-- //在自定义的组件上，新增一个动态属性，然后属性的值 author 是父组件的，这个时候父组件就是已经把值给发过去了 -->
-    <footer-vue :foo-pro="author" @click="doThis(arg1)"></footer-vue>
+    <footer-vue ref="footMsg" :fooPro="author" @click="doThis(arg1)"></footer-vue>
     <div class="layout-bg"></div>
   </div>
 </template>
@@ -91,6 +89,19 @@
 import myContact from "./components/MyContact.vue";
 import footers from "./components/Footer.vue";
 import axios from "axios";
+
+/*父组件主动获取子组件的方法或属性
+1、 在子组件里定义一个ref
+ <v-header ref='header'></v-header>
+ 2、在父组件里通过下列方法获取
+  this.$refs.header.属性
+  this.$refs.header.方法 
+
+  在子组件里，获取父组件的方法
+
+  this.$parent.属性
+  this.$parent.方法 
+*/
 
 var taskInit = {
   name: "", //内容为空
@@ -107,7 +118,7 @@ export default {
     return {
       name: "孙悟猪",
       author: "孙悟猪",
-      englishName:"DanielYao",
+      englishName: "DanielYao",
       task: taskInit,
       isShow: true,
       hrClass: "hr",
@@ -197,10 +208,13 @@ export default {
   methods: {
     addArticle() {
       //axios
-      axios.get(api).then(res => {
+      axios
+        .get(api)
+        .then(res => {
           console.log(`axios请求方式`);
           console.log(res);
-        }).catch(err => {
+        })
+        .catch(err => {
           console.log(`错误信息${err}`);
         });
       this.list = this.list.reverse();
@@ -222,6 +236,9 @@ export default {
           console.log("错误" + err);
         }
       );
+    },
+    tou() {
+      var tx = this.$refs.footMsg.getMsg("父组件通过调用子组件");
     }
   },
   //通过计算属性过滤数据

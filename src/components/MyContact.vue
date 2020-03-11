@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div @click="send()">
         <ul class ="contact-list non-style-list">
             <li>
                 <b class ="twitter">TWITTER</b>: <a href="#">@{{myName}}</a>
@@ -8,7 +8,7 @@
                 <b class ="weibo">微博</b>: <a href="#">@{{webName}}</a>
             </li>
             <li>
-                <b class ="zhihu">知乎</b>: <a href="#" ></a>
+                <b class ="zhihu">知乎</b>: <a href="#">@{{webName}}</a>
             </li>
             <li>
                 <b class ="github">GITHUB</b>:  <a href="https://github.com/">{{myName}}</a>
@@ -20,6 +20,7 @@
     </div>
 </template>
 <script>
+import event from '../model/event.js';
 export default {
      data() {
             return {
@@ -35,6 +36,12 @@ export default {
                 }
             }
         },
-        props:['myName','webName'] //接收夫组件传值，或传方法 都行。（还可验证传值的类型，不常用）
+        props:['myName','webName'], //接收夫组件传值，或传方法 都行。（还可验证传值的类型，不常用）
+        methods:{
+            send(){
+                //向footer.vue 组件通信
+                event.$emit('contact-on',this.myName);
+            }
+        }
 }
 </script>
