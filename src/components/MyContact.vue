@@ -1,6 +1,7 @@
 <template>
     <div @click="send()">
-        <ul class ="contact-list non-style-list">
+        <!-- contact-list non-style-list -->
+        <ul class ="cont">
             <li>
                 <b class ="twitter">TWITTER</b>: <a href="#">@{{myName}}</a>
             </li>
@@ -45,3 +46,12 @@ export default {
         }
 }
 </script>
+
+
+ <style scoped>
+ .cont{
+     list-style-type: none;
+margin: 30px 29% auto;
+ }
+
+</style>
