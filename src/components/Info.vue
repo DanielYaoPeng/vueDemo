@@ -34,13 +34,7 @@
       </nav>
     </header>
     
-    <input
-      type="text"
-      class="edit"
-      @keydown.enter="addArticle"
-      v-model="task.name"
-      placeholder="按回车添加文章"
-    />
+    <input type="text" class="edit" @keydown.enter="addArticle" v-model="task.name" placeholder="按回车添加文章"/>
     <div class="container">
       <h2 class="hr">
         <span>About Me</span>
@@ -57,7 +51,8 @@
         <!--注意，不能在已经存在的静态类post-list-item上操作 动态绑定class样式，deleted=true状态样式异化-->
         <li v-for="item in listSearch" class="post-list-item" :class="{ deleted: item.deleted}">
           <!--这里用到了 v-bind 指令-->
-          <a v-bind:href="'https://www.cnblogs.com/laozhang-is-phi/p/'+ item.id +'.html'">{{item.name}}</a>
+          <router-link :to ="`/vlogDetail/${item.id}`">  {{item.name}}</router-link>
+          <!-- <a v-bind:href="'https://www.cnblogs.com/laozhang-is-phi/p/'+ item.id +'.html'">{{item.name}}</a> -->
           <!--还可以这样写-->
           <!--<a :href="liskUrl">{{item.name}}</a>-->
           <span class="post-list-date">({{item.date}})</span>
@@ -205,7 +200,8 @@ export default {
 
   methods: {
     addArticle() {
-      //axios
+      if(this.task.name!=""){
+    //axios
       axios.get(api).then(res => {
           console.log(`axios请求方式`);
           console.log(res);
@@ -217,6 +213,8 @@ export default {
       this.list.push(this.task);
       this.list = this.list.reverse();
       this.task = initTask();
+      }
+     
     },
     removeArticle(index) {
       // this.list.

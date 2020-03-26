@@ -6,6 +6,7 @@ import VueRouter from 'vue-router'
 
 import Home from "./components/Home.vue";
 import Info from "./components/Info.vue";
+import VlogDetail from "./components/VlogDetail.vue";
 
 Vue.use(VueRouter);
 
@@ -16,7 +17,8 @@ Vue.use(VueRouter);
  const routes = [
   { path: '/home', component: Home },
   { path: '/info', component: Info },
- // { path: '*', redirect: '/App' }   /*默认跳转路由*/
+  { path: '/vlogDetail/:id', component: VlogDetail },
+  { path: '*', redirect: '/home' }   /*默认跳转路由*/
 ]
 
 const router = new VueRouter({
