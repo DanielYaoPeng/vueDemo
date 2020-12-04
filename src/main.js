@@ -4,6 +4,8 @@ import VueResource from "vue-resource";
 
 import VueRouter from 'vue-router'
 
+import { Line } from '@antv/g2plot';
+
 import Home from "./components/Home.vue";
 import Info from "./components/Info.vue";
 import VlogDetail from "./components/VlogDetail.vue";
